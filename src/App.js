@@ -7,9 +7,7 @@ class App extends Component {
     middleName: "",
     lastName: "",
     organization: "",
-    photo: "",
     workPhone: "",
-    birthday: "",
     title: "",
     node: "",
     email: ""
@@ -29,11 +27,11 @@ class App extends Component {
   };
 
   handleTextChange = e => {
-    console.log(e);
     this.setState({
       [e.target.name]: e.target.value
     });
   };
+
   render() {
     //create a new vCard
     let vCard = vCardsJS();
@@ -42,9 +40,9 @@ class App extends Component {
     vCard.middleName = this.state.middleName;
     vCard.lastName = this.state.middleName;
     vCard.organization = this.state.organization;
-    vCard.photo.attachFromUrl(this.state.photo, "png");
+    vCard.photo.embedFromString(this.state.photo, "png");
     vCard.workPhone = this.state.workPhone;
-    vCard.birthday = new Date(1993, 20, 8);
+    vCard.birthday = this.state.birthday;
     vCard.title = this.state.title;
     vCard.url = this.state.url;
     vCard.note = this.state.note;
@@ -55,24 +53,80 @@ class App extends Component {
     let vCardEncodedString = encodeURIComponent(vCardString);
     let qrCodeUrl = `https://chart.googleapis.com/chart?chs=300x300&choe=UTF-8&chld=M|0&cht=qr&chl=${vCardEncodedString}`;
     return (
-      <div>
-        <input type="text" name="firstName" onKeyUp={this.handleTextChange} />
-        <input type="text" name="middleName" onKeyUp={this.handleTextChange} />
-        <input type="text" name="lastName" onKeyUp={this.handleTextChange} />
+      <div className="container form-group d-flex flex-column justify-content-center">
+        <h1 className="text-info text-center">VCard QRCode Generator</h1>
+        <img
+          ref="img"
+          style={{ height: 100, width: 100, margin: "auto" }}
+          src={qrCodeUrl}
+        />
         <input
+          className="form-control"
           type="text"
-          name="organization"
+          name="firstName"
+          placeholder="First name"
           onKeyUp={this.handleTextChange}
         />
-        <input type="text" name="photo" onKeyUp={this.handleTextChange} />
-        <input type="text" name="workPhone" onKeyUp={this.handleTextChange} />
-        <input type="text" name="birthday" onKeyUp={this.handleTextChange} />
-        <input type="text" name="title" onKeyUp={this.handleTextChange} />
-        <input type="text" name="url" onKeyUp={this.handleTextChange} />
-        <input type="text" name="note" onKeyUp={this.handleTextChange} />
-        <input type="text" name="email" onKeyUp={this.handleTextChange} />
-        <img ref="img" src={qrCodeUrl} />
-        <button onClick={() => this.downloadQRCode(qrCodeUrl, "qrcode.png")}>
+        <input
+          className="form-control"
+          type="text"
+          name="middleName"
+          placeholder="Middle name"
+          onKeyUp={this.handleTextChange}
+        />
+        <input
+          className="form-control"
+          type="text"
+          name="lastName"
+          placeholder="Last name"
+          onKeyUp={this.handleTextChange}
+        />
+        <input
+          className="form-control"
+          type="text"
+          name="organization"
+          placeholder="Organization"
+          onKeyUp={this.handleTextChange}
+        />
+        <input
+          className="form-control"
+          type="text"
+          name="title"
+          placeholder="Designation"
+          onKeyUp={this.handleTextChange}
+        />
+        <input
+          className="form-control"
+          type="text"
+          name="workPhone"
+          placeholder="Phone (work)"
+          onKeyUp={this.handleTextChange}
+        />
+        <input
+          className="form-control"
+          type="text"
+          name="email"
+          placeholder="Email"
+          onKeyUp={this.handleTextChange}
+        />
+        <input
+          className="form-control"
+          type="text"
+          name="url"
+          placeholder="Website"
+          onKeyUp={this.handleTextChange}
+        />
+        <input
+          className="form-control"
+          type="text"
+          name="note"
+          placeholder="Description"
+          onKeyUp={this.handleTextChange}
+        />
+        <button
+          className="btn btn-info"
+          onClick={() => this.downloadQRCode(qrCodeUrl, "qrcode.png")}
+        >
           Download the QRCode
         </button>
       </div>
