@@ -53,7 +53,7 @@ class App extends Component {
     let vCardEncodedString = encodeURIComponent(vCardString);
     let qrCodeUrl = `https://chart.googleapis.com/chart?chs=300x300&choe=UTF-8&chld=M|0&cht=qr&chl=${vCardEncodedString}`;
     return (
-      <div className="container form-group d-flex flex-column justify-content-center">
+      <div className="container form-group col-md-4 d-flex flex-column justify-content-center">
         <h1 className="text-info text-center">VCard QRCode Generator</h1>
         <img
           ref="img"
